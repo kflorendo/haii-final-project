@@ -1,0 +1,9 @@
+/* line 1, fruitapp/static/styles.scss */
+html,
+body {
+  height: 100%; }
+
+/* line 7, fruitapp/static/styles.scss */
+.content {
+  min-width: 50% !important;
+  min-height: 60%; }
