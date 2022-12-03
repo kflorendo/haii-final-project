@@ -1,0 +1,43 @@
+{% extends "fruitapp/base.html" %}
+
+{% block content %}
+{% load static %}
+
+<div class="row m-3">
+    <div class="col h-100">
+        <h5 class="mb-3">choose fruit</h5>
+        <form>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">fruit type</span>
+                    <select class="form-select" aria-label="Default select example">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="banana">banana</option>
+                        <option value="apple">apple</option>
+                        <option value="orange">orange</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <input id="imageInput" class="form-control" type="file" id="formFile">
+                </div>
+                <button class="btn btn-primary" type="submit">Classify</button>
+        </form>
+    </div>
+    <div class="col border-start h-100">
+        <h5 class="mb-3">preview fruit</h5>
+        <figure class="figure">
+            <img id="imagePreview" src="{% static 'fruitapp/placeholder-image.jpeg' %}"
+                class="figure-img img-fluid rounded image" alt="...">
+        </figure>
+    </div>
+</div>
+<script>
+
+    $("#imageInput")[0].onchange = evt => {
+        const [file] = $("#imageInput")[0].files
+        if (file) {
+            $("#imagePreview")[0].src = URL.createObjectURL(file)
+        }
+    }
+</script>
+{% endblock %}

@@ -5,3 +5,6 @@ def home(request):
 
 def about(request):
     return render(request, 'fruitapp/about.html', {})
+
+def classify(request):
+    return render(request, 'fruitapp/classify.html', {})
