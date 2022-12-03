@@ -21,4 +21,5 @@ from fruitapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
+    path('about', views.about)
 ]
