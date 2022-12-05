@@ -1,0 +1,23 @@
+/* line 1, fruitapp/static/fruitapp/styles.scss */
+html,
+body {
+  height: 100%; }
+
+/* line 7, fruitapp/static/fruitapp/styles.scss */
+.content {
+  min-width: 50% !important;
+  min-height: 60%; }
+
+/* line 12, fruitapp/static/fruitapp/styles.scss */
+.image {
+  height: 400px;
+  width: 400px; }
+
+/* line 17, fruitapp/static/fruitapp/styles.scss */
+#step2Card {
+  display: none; }
+
+/* line 21, fruitapp/static/fruitapp/styles.scss */
+.spinner-border {
+  animation-duration: 1.5s !important;
+  opacity: 50% !important; }

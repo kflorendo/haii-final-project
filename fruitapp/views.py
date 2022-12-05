@@ -8,3 +8,6 @@ def about(request):
 
 def classify(request):
     return render(request, 'fruitapp/classify.html', {})
+
+def classify_image(request):
+    return render(request, 'fruitapp/classify.html', {})
