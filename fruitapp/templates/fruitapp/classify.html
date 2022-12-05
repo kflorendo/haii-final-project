@@ -13,14 +13,26 @@
             {{ class_name }}: {{ confidence_score }}
             {{ predictions }}
             <image src="{% get_media_prefix %}{{ file_name }}" class="fruit-image"/>
-            <form action="{% url 'explain' %}" method="POST">
+            <form action="{% url 'explain' %}" method="POST" id="explainForm">
                 <input type="hidden" name="fileurl" value="{{file_url}}"/>
                 <input type="hidden" name="filename" value="{{file_name}}"/>
                 {% csrf_token %}
-                <button class="btn btn-primary" type="submit">Explain</button>
+                <button class="btn btn-primary" type="submit" id="explainButton">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="explainSpinner"></span>
+                    Explain
+                </button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    $("#explainButton").click(function (e) {
+        $("#explainSpinner").css("display", "inline-block");
+        let btn = e.target;
+        btn.setAttribute("disabled", "");
+        $("#explainForm").submit()
+    })
+</script>
 
 {% endblock %}
