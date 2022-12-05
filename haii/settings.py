@@ -20,6 +20,8 @@ import tensorflow.compat.v1 as tf
 from tensorflow.python.keras.backend import set_session
 from keras.models import load_model
 
+import os
+
 tf.disable_v2_behavior()
 
 SESS = tf.compat.v1.Session()
@@ -146,3 +148,6 @@ STATIC_ROOT = 'fruitapp/static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
