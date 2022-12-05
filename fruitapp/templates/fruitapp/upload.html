@@ -8,7 +8,7 @@
         <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
             <div class="row m-3">
                 <div class="col h-100">
-                    <form>
+                    <form action="{% url 'classify' %}" method="POST" enctype="multipart/form-data">
                         <h5 class="mb-3">choose fruit</h5>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">fruit type</span>
@@ -23,6 +23,7 @@
                         <div class="mb-3">
                             <input id="imageInput" class="form-control" type="file" name="imageFile">
                         </div>
+                        {% csrf_token %}
                         <button class="btn btn-primary" type="submit">classify</button>
                     </form>
                 </div>

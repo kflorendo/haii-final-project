@@ -28,8 +28,9 @@ SESS = tf.compat.v1.Session()
 GRAPH1 = tf.get_default_graph()
 set_session(SESS)
 
-BANANA_MODEL = load_model(str(BASE_DIR) + '/fruitapp/static/fruitapp/models/banana_Model.h5', compile=False)
+BANANA_MODEL = load_model(str(BASE_DIR) + '/fruitapp/static/fruitapp/models/banana_Model.h5')
 
+FRUIT_CLASS_NAMES = open(str(BASE_DIR) + '/fruitapp/static/fruitapp/models/labels.txt', 'r').readlines()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
