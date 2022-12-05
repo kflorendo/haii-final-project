@@ -19,6 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import tensorflow.compat.v1 as tf
 from tensorflow.python.keras.backend import set_session
 from keras.models import load_model
+from lime import lime_image
 
 import os
 
@@ -31,6 +32,8 @@ set_session(SESS)
 BANANA_MODEL = load_model(str(BASE_DIR) + '/fruitapp/static/fruitapp/models/banana_Model.h5')
 
 FRUIT_CLASS_NAMES = open(str(BASE_DIR) + '/fruitapp/static/fruitapp/models/labels.txt', 'r').readlines()
+
+EXPLAINER = lime_image.LimeImageExplainer()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/

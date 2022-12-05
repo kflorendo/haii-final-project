@@ -9,6 +9,9 @@ import numpy as np
 from PIL import Image, ImageOps #Install pillow instead of PIL
 from tensorflow.python.keras.backend import set_session
 
+from skimage.segmentation import mark_boundaries
+from skimage.io import imsave
+
 def home(request):
     return render(request, 'fruitapp/home.html', {})
 
@@ -18,20 +21,13 @@ def about(request):
 def upload(request):
     return render(request, 'fruitapp/upload.html', {})
 
-def classify(request):
-    if not request.method == 'POST':
-        return render(request, 'fruitapp/upload.html', {})
-    
-    file = request.FILES['imageFile']
-    file_name = default_storage.save(file.name, file)
-    file_url = default_storage.path(file_name)
-
+def process_image(file_url):
     # Create the array of the right shape to feed into the keras model
     # The 'length' or number of images you can put into the array is
     # determined by the first position in the shape tuple, in this case 1.
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
-    # Replace this with the path to your image
+    # Open image
     image = Image.open(file_url).convert('RGB')
 
     #resize the image to a 224x224 with the same strategy as in TM2:
@@ -48,6 +44,18 @@ def classify(request):
     # Load the image into the array
     data[0] = normalized_image_array
 
+    return data
+
+def classify(request):
+    if not request.method == 'POST':
+        return render(request, 'fruitapp/upload.html', {})
+    
+    file = request.FILES['imageFile']
+    file_name = default_storage.save(file.name, file)
+    file_url = default_storage.path(file_name)
+
+    data = process_image(file_url)
+
     # run the inference
     with settings.GRAPH1.as_default():
         set_session(settings.SESS)
@@ -55,7 +63,25 @@ def classify(request):
         index = np.argmax(predictions)
         class_name = settings.FRUIT_CLASS_NAMES[index]
         confidence_score = predictions[0][index]
-    return render(request, 'fruitapp/classify.html', {'predictions': predictions, 'class_name': class_name, 'confidence_score': confidence_score, 'file_url': file_url})
+    
+        # explanation = settings.EXPLAINER.explain_instance((data[0]).astype('double'), settings.BANANA_MODEL.predict, top_labels=5, hide_color=0, num_samples=1000)
+        # temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
+        # im = mark_boundaries(temp / 2 + 0.5, mask)
+        # imsave(settings.MEDIA_ROOT + '/explain/' + file.name, im)
+    return render(request, 'fruitapp/classify.html', {'predictions': predictions, 'class_name': class_name, 'confidence_score': confidence_score, 'file_url': file_url, 'file_name': file_name})
 
 def explain(request):
-    return render(request, 'fruitapp/explain.html', {})
+    if not request.method == 'POST':
+        return render(request, 'fruitapp/upload.html', {})
+    file_url = request.POST.get("fileurl")
+    file_name = request.POST.get("filename")
+    
+    data = process_image(file_url)
+    with settings.GRAPH1.as_default():
+        set_session(settings.SESS)
+        explanation = settings.EXPLAINER.explain_instance((data[0]).astype('double'), settings.BANANA_MODEL.predict, top_labels=5, hide_color=0, num_samples=1000)
+        temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
+        im = mark_boundaries(temp / 2 + 0.5, mask)
+        explain_file_name = '/explain/' + file_name
+        imsave(settings.MEDIA_ROOT + explain_file_name, im)
+    return render(request, 'fruitapp/explain.html', {'explain_file_name': explain_file_name})
