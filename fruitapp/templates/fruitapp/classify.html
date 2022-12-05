@@ -3,8 +3,8 @@
 {% block content %}
 {% load static %}
 <h3 class="mb-3">step 2: results</h3>
-<div class="d-flex flex-row justify-content-center mb-3">
-    <div style="width: 500px;" class="card shadow d-flex justify-content-center text-center p-5 m-3">
+<div class="d-flex flex-row justify-content-center mb-5">
+    <div style="width: 500px;" class="card shadow d-flex justify-content-center text-center p-5 ms-3 me-3">
         <div class="d-flex flex-column h-100">
 
             <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
@@ -58,7 +58,7 @@
         </div>
 
     </div>
-    <div class="card shadow d-flex justify-content-center text-center p-5 m-3">
+    <div class="card shadow d-flex justify-content-center text-center p-5 ms-3 me-3">
         <div class="h-100 p-3">
             <div class="d-flex flex-column h-100">
                 <h3 class="mb-3">still unsure?</h3>
@@ -100,6 +100,12 @@
         </div>
     </div>
 </div>
+
+<a href="{% url 'upload' %}">
+<button class="btn btn-primary">
+    classify another fruit
+</button>
+</a>
 
 <script>
     $("#explainButton").click(function (e) {
