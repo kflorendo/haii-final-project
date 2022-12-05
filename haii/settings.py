@@ -16,6 +16,19 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+import tensorflow.compat.v1 as tf
+from tensorflow.python.keras.backend import set_session
+from keras.models import load_model
+
+tf.disable_v2_behavior()
+
+SESS = tf.compat.v1.Session()
+GRAPH1 = tf.get_default_graph()
+set_session(SESS)
+
+BANANA_MODEL = load_model(str(BASE_DIR) + '/fruitapp/static/fruitapp/models/banana_Model.h5', compile=False)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
