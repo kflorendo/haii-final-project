@@ -19,12 +19,12 @@ def upload(request):
     return render(request, 'fruitapp/upload.html', {})
 
 def classify(request):
-    if request.method == 'POST':
+    if not request.method == 'POST':
+        return render(request, 'fruitapp/upload.html', {})
+    else:
         file = request.FILES['imageFile']
         file_name = default_storage.save(file.name, file)
         file_url = default_storage.path(file_name)
-
-        # image = load_img(file_url, target_size=(224, 224))
 
         # Create the array of the right shape to feed into the keras model
         # The 'length' or number of images you can put into the array is
@@ -49,12 +49,10 @@ def classify(request):
         data[0] = normalized_image_array
 
         # run the inference
-        # with settings.SESS.as_default():
         with settings.GRAPH1.as_default():
             set_session(settings.SESS)
             predictions = settings.BANANA_MODEL.predict(data)
-            # prediction = settings..predict(data)
             index = np.argmax(predictions)
             class_name = settings.FRUIT_CLASS_NAMES[index]
             confidence_score = predictions[0][index]
-        return render(request, 'fruitapp/classify.html', {'class_name': class_name, 'confidence_score': confidence_score})
+        return render(request, 'fruitapp/classify.html', {'predictions': predictions, 'class_name': class_name, 'confidence_score': confidence_score, 'file_url': file_url})
