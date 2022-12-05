@@ -10,6 +10,15 @@ body {
 }
 
 .image {
-    max-height: 400px;
-    max-width: 400px;
+    height: 400px;
+    width: 400px;
+}
+
+#step2Card {
+    display: none;
+}
+
+.spinner-border {
+    animation-duration: 1.5s !important;
+    opacity: 50% !important;
 }

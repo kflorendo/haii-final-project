@@ -20,7 +20,7 @@ from fruitapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
-    path('about', views.about),
-    path('classify', views.classify),
+    path('', views.home, name='home'),
+    path('about', views.about, name='about'),
+    path('classify', views.classify, name='classify'),
 ]
