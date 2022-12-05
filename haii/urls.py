@@ -24,4 +24,5 @@ urlpatterns = [
     path('about', views.about, name='about'),
     path('upload', views.upload, name='upload'),
     path('classify', views.classify, name='classify'),
+    path('explain', views.explain, name='explain'),
 ]
