@@ -29,7 +29,14 @@ SESS = tf.compat.v1.Session()
 GRAPH1 = tf.get_default_graph()
 set_session(SESS)
 
-BANANA_MODEL = load_model(str(BASE_DIR) + '/models/banana_Model.h5')
+BANANA_MODEL = load_model(str(BASE_DIR) + '/models/banana_model.h5')
+APPLE_MODEL = load_model(str(BASE_DIR) + '/models/apple_model.h5')
+ORANGE_MODEL = load_model(str(BASE_DIR) + '/models/orange_model.h5')
+STRAWBERRY_MODEL = load_model(str(BASE_DIR) + '/models/strawberry_model.h5')
+MANGO_MODEL = load_model(str(BASE_DIR) + '/models/mango_model.h5')
+TOMATO_MODEL = load_model(str(BASE_DIR) + '/models/tomato_model.h5')
+GREENGRAPE_MODEL = load_model(str(BASE_DIR) + '/models/green_grape_model.h5')
+LIME_MODEL = load_model(str(BASE_DIR) + '/models/lime_model.h5')
 
 FRUIT_CLASS_NAMES = open(str(BASE_DIR) + '/models/labels.txt', 'r').readlines()
 
