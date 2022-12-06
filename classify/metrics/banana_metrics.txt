@@ -1,0 +1,10 @@
+metrics for banana model
+
+TP: 357
+FP: 3
+FN: 1
+TN: 359
+accuracy: 0.9944444444444445
+false positive rate: 0.008287292817679558
+false negative rate: 0.002793296089385475
+

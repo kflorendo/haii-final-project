@@ -1,0 +1,10 @@
+metrics for tomato model
+
+TP: 248
+FP: 52
+FN: 0
+TN: 300
+accuracy: 0.9133333333333333
+false positive rate: 0.14772727272727273
+false negative rate: 0.0
+

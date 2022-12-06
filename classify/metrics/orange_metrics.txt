@@ -1,0 +1,10 @@
+metrics for orange model
+
+TP: 347
+FP: 13
+FN: 0
+TN: 360
+accuracy: 0.9819444444444444
+false positive rate: 0.03485254691689008
+false negative rate: 0.0
+

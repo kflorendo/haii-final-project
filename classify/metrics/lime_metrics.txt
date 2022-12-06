@@ -1,0 +1,10 @@
+metrics for lime model
+
+TP: 280
+FP: 20
+FN: 23
+TN: 277
+accuracy: 0.9283333333333333
+false positive rate: 0.06734006734006734
+false negative rate: 0.07590759075907591
+

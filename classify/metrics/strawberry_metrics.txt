@@ -1,0 +1,10 @@
+metrics for strawberry model
+
+TP: 354
+FP: 6
+FN: 30
+TN: 330
+accuracy: 0.95
+false positive rate: 0.017857142857142856
+false negative rate: 0.078125
+

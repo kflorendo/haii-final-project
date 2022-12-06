@@ -12,11 +12,13 @@ from skimage.segmentation import mark_boundaries
 import os
 import sys
 
+# read fruit name from command line arguments
 if len(sys.argv) < 2:
     raise Exception('Enter fruit name as command line argument')
 fruit = sys.argv[1]
 print('getting metrics for', fruit, 'model')
 
+# set up functions for getting paths to model and test data
 model_prefix = 'fruitapp/static/fruitapp/models/'
 kaggle_prefix = 'classify/kaggle-dataset/'
 kaggle_suffix = '/test'
@@ -28,6 +30,7 @@ def get_kaggle(folder_name):
 def get_mendeley(folder_name):
     return mendeley_prefix + folder_name + mendeley_suffix
 
+# set model and test data folders based on fruit type
 if fruit == 'banana':
     model_url = model_prefix + 'banana_model.h5'
     fresh_folders = [get_kaggle('F_Banana'), get_mendeley('FreshBanana')]
@@ -69,6 +72,8 @@ model = load_model(model_url, compile=False)
 # Load the labels
 class_names = open('classify/labels.txt', 'r').readlines()
 
+# helper function that classifies the image at file_url
+# returns 0 for fresh and 1 for rotten
 def classify(file_url):
     print('classifying', file_url)
     # Create the array of the right shape to feed into the keras model
@@ -95,34 +100,39 @@ def classify(file_url):
     # run the inference
     prediction = model.predict(data)
     index = np.argmax(prediction)
-    class_name = class_names[index][2:]
-    return class_name
+    class_index = class_names[index][0]
+    return int(class_index)
 
-TP = 0
-FP = 0
-FN = 0
-TN = 0
+# classify each image, keeping track of metrics
 
+TP = 0 # true positives
+FP = 0 # false positives
+FN = 0 # false negatives
+TN = 0 # true negatives
+
+# classify fresh test data
 for folder_url in fresh_folders:
     for file_name in os.listdir(folder_url):
         file_url = os.path.join(folder_url, file_name)
         if file_name[-4:] == ".jpg":
-            class_name = classify(file_url)
-            if class_name == "fresh":
+            class_index = classify(file_url)
+            if class_index == 0:
                 TP += 1
             else:
                 FP += 1
 
+# classify rotten test data
 for folder_url in rotten_folders:
     for file_name in os.listdir(folder_url):
         file_url = os.path.join(folder_url, file_name)
         if file_name[-4:] == ".jpg":
-            class_name = classify(file_url)
-            if class_name == "rotten":
+            class_index = classify(file_url)
+            if class_index == 1:
                 TN += 1
             else:
                 FN += 1
 
+# print results to the terminal
 print('TP (fresh and predicted fresh):', TP)
 print('FP (fresh and predicted rotten):', FP)
 print('FN (rotten and predicted fresh):', FN)
@@ -134,3 +144,17 @@ false_negative_rate = FN / (FN + TP)
 print('accuracy:', accuracy)
 print('false positive rate:', false_positive_rate)
 print('false negative rate', false_negative_rate)
+
+# write results to the text file
+f = open(f'classify/metrics/{fruit}_metrics.txt', "w")
+f.write(f'metrics for {fruit} model\n')
+f.write("\n")
+f.write(f'TP: {TP}\n')
+f.write(f'FP: {FP}\n')
+f.write(f'FN: {FN}\n')
+f.write(f'TN: {TN}\n')
+f.write(f'accuracy: {accuracy}\n')
+f.write(f'false positive rate: {false_positive_rate}\n')
+f.write(f'false negative rate: {false_negative_rate}\n')
+f.write("\n")
+f.close()
