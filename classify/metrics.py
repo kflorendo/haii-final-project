@@ -123,9 +123,14 @@ for folder_url in rotten_folders:
             else:
                 FN += 1
 
-print('TP (fresh and predicted fresh): ', TP)
-print('FP (fresh and predicted rotten): ', FP)
-print('FN (rotten and predicted fresh): ', FN)
-print('TN (rotten and predicted rotten): ', TN)
-# print('Class:', class_name, end='')
-# print('Confidence score:', confidence_score)
+print('TP (fresh and predicted fresh):', TP)
+print('FP (fresh and predicted rotten):', FP)
+print('FN (rotten and predicted fresh):', FN)
+print('TN (rotten and predicted rotten):', TN)
+
+accuracy = (TP + TN) / (TP + TN + FP + FN)
+false_positive_rate = FP / (FP + TN)
+false_negative_rate = FN / (FN + TP)
+print('accuracy:', accuracy)
+print('false positive rate:', false_positive_rate)
+print('false negative rate', false_negative_rate)
