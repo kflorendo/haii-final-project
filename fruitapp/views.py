@@ -117,15 +117,18 @@ def explain(request):
         return render(request, 'fruitapp/upload.html', {})
     file_url = request.POST.get("fileurl")
     file_name = request.POST.get("filename")
+    pro_class_name = request.POST.get("classname")
+    con_class_name = "rotten" if pro_class_name == "fresh" else "fresh"
 
     data = process_image(file_url)
     with settings.GRAPH1.as_default():
         set_session(settings.SESS)
         explanation = settings.EXPLAINER.explain_instance((data[0]).astype(
             'double'), settings.BANANA_MODEL.predict, top_labels=5, hide_color=0, num_samples=1000)
-        temp, mask = explanation.get_image_and_mask(
-            explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
+        # temp, mask = explanation.get_image_and_mask(
+        #     explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
+        temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=False, num_features=10, hide_rest=False)
         im = mark_boundaries(temp / 2 + 0.5, mask)
         explain_file_name = '/explain/' + file_name
         imsave(settings.MEDIA_ROOT + explain_file_name, im)
-    return render(request, 'fruitapp/explain.html', {'explain_file_name': explain_file_name})
+    return render(request, 'fruitapp/explain.html', {'explain_file_name': explain_file_name, 'pro_class_name': pro_class_name, 'con_class_name': con_class_name})
