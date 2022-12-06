@@ -92,8 +92,7 @@
                     <input type="hidden" name="classname" value="{{class_name}}" />
                     {% csrf_token %}
                     <button class="btn btn-primary" type="submit" id="explainButton">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            id="explainSpinner"></span>
+                        <span class="buttonSpinner"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></span>
                         explain
                     </button>
                 </form>
@@ -110,7 +109,7 @@
 
 <script>
     $("#explainButton").click(function (e) {
-        $("#explainSpinner").css("display", "inline-block");
+        $(".buttonSpinner").css("display", "inline-block");
         let btn = e.target;
         btn.setAttribute("disabled", "");
         $("#explainForm").submit()

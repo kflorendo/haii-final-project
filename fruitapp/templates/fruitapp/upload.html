@@ -7,8 +7,8 @@
     <div class="d-flex flex-column">
         <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
             <div class="row m-3">
-                <div class="col">
-                    <form action="{% url 'classify' %}" method="POST" enctype="multipart/form-data">
+                <div class="col pe-5">
+                    <form action="{% url 'classify' %}" method="POST" enctype="multipart/form-data" id="classifyForm">
                         <h5 class="mb-3">choose fruit</h5>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">fruit type</span>
@@ -24,10 +24,13 @@
                             <input id="imageInput" class="form-control" type="file" name="imageFile">
                         </div>
                         {% csrf_token %}
-                        <button class="btn btn-primary" type="submit">classify</button>
+                        <button id="classifyButton" class="btn btn-primary" type="submit">
+                            <span class="buttonSpinner"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></span>
+                            classify
+                        </button>
                     </form>
                 </div>
-                <div class="col border-start">
+                <div class="col border-start ps-5">
                     <h5 class="mb-3">preview fruit</h5>
                     <figure class="figure">
                         <img id="imagePreview" src="{% static 'fruitapp/placeholder-image.jpeg' %}"
@@ -46,6 +49,13 @@
             $("#imagePreview")[0].src = URL.createObjectURL(file)
         }
     }
+
+    $("#classifyButton").click(function (e) {
+        $(".buttonSpinner").css("display", "inline-block");
+        let btn = e.target;
+        btn.setAttribute("disabled", "");
+        $("#classifyForm").submit()
+    })
 </script>
 
 {% endblock %}
