@@ -12,14 +12,45 @@ from tensorflow.python.keras.backend import set_session
 from skimage.segmentation import mark_boundaries
 from skimage.io import imsave
 
-from enum import Enum
+import os
 
 def home(request):
     return render(request, 'fruitapp/home.html', {})
 
+def get_metrics():
+    metrics_folder = 'scripts/metrics/'
+    metrics = []
+    num_fruits = 0
+    cumulative_accuracy = 0
+    cumulative_fpr = 0
+    cumulative_fnr = 0
+    for file_name in os.listdir('scripts/metrics/'):
+        file_url = os.path.join(metrics_folder, file_name)
+        with open(file_url, 'r') as f:
+            lines = f.readlines()
+            accuracy = float(lines[6][len("accuracy: "):]) * 100
+            fpr = float(lines[7][len("false positive rate: "):]) * 100
+            fnr = float(lines[8][len("false negative rate: "):]) * 100
+            metrics.append({
+                'fruit': file_name[:-1 * len("_metrics.txt")],
+                'accuracy': round(accuracy, 2),
+                'fpr': round(fpr, 2),
+                'fnr': round(fnr, 2)
+            })
+            cumulative_accuracy += accuracy
+            cumulative_fpr += fpr
+            cumulative_fnr += fnr
+        num_fruits += 1
+    overall_metric = {
+        'accuracy': round(cumulative_accuracy / num_fruits, 2),
+        'fpr': round(cumulative_fpr / num_fruits, 2),
+        'fnr': round(cumulative_fnr / num_fruits, 2),
+    }
+    return metrics, overall_metric
 
 def about(request):
-    return render(request, 'fruitapp/about.html', {})
+    metrics, overall_metric = get_metrics()
+    return render(request, 'fruitapp/about.html', {'metrics': metrics, 'overall_metric': overall_metric})
 
 
 def upload(request):
