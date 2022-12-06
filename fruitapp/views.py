@@ -54,6 +54,20 @@ def process_image(file_url):
 def get_model(fruit_type):
     if fruit_type == "banana":
         return settings.BANANA_MODEL
+    elif fruit_type == "apple":
+        return settings.APPLE_MODEL
+    elif fruit_type == "orange":
+        return settings.ORANGE_MODEL
+    elif fruit_type == "strawberry":
+        return settings.STRAWBERRY_MODEL
+    elif fruit_type == "mango":
+        return settings.MANGO_MODEL
+    elif fruit_type == "greengrape":
+        return settings.GREENGRAPE_MODEL
+    elif fruit_type == "tomato":
+        return settings.TOMATO_MODEL
+    elif fruit_type == "lime":
+        return settings.LIME
     else:
         return settings.BANANA_MODEL
 
