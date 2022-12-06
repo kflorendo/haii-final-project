@@ -2,13 +2,6 @@ from keras.models import load_model
 from PIL import Image, ImageOps #Install pillow instead of PIL
 import numpy as np
 
-from keras.preprocessing import image
-import matplotlib.pyplot as plt
-
-from lime import lime_image
-
-from skimage.segmentation import mark_boundaries
-
 import os
 import sys
 
@@ -20,9 +13,9 @@ print('getting metrics for', fruit, 'model')
 
 # set up functions for getting paths to model and test data
 model_prefix = 'fruitapp/static/fruitapp/models/'
-kaggle_prefix = 'classify/kaggle-dataset/'
+kaggle_prefix = 'scripts/kaggle-dataset/'
 kaggle_suffix = '/test'
-mendeley_prefix = 'classify/mendeley-dataset/OriginalImage/'
+mendeley_prefix = 'scripts/mendeley-dataset/OriginalImage/'
 mendeley_suffix = '/test'
 
 def get_kaggle(folder_name):
@@ -70,7 +63,7 @@ else:
 model = load_model(model_url, compile=False)
 
 # Load the labels
-class_names = open('classify/labels.txt', 'r').readlines()
+class_names = open('scripts/classify/labels.txt', 'r').readlines()
 
 # helper function that classifies the image at file_url
 # returns 0 for fresh and 1 for rotten
@@ -146,7 +139,7 @@ print('false positive rate:', false_positive_rate)
 print('false negative rate', false_negative_rate)
 
 # write results to the text file
-f = open(f'classify/metrics/{fruit}_metrics.txt', "w")
+f = open(f'scripts/metrics/{fruit}_metrics.txt', "w")
 f.write(f'metrics for {fruit} model\n')
 f.write("\n")
 f.write(f'TP: {TP}\n')
