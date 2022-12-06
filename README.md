@@ -1,7 +1,7 @@
 # Fruit App: 05-318 Human AI Interaction Final Project
 
 ## About
-Fruit App is a web application that uses AI to classify a fruit as fresh or rotten. Here are the components of this repo:
+Fruit App is a web application that uses AI to classify a fruit as fresh or rotten.
 
 ### Web application
 This web application allows users to upload a picture of their fruit and classify if it is as fresh or rotten. At the home page, if the user is new to the site, they can go to the about page and learn about what Fruit App is, how it works, and what are the stakes of using this app, particularly metrics (accuracy, false positive rate, and false negative rate) of the models. Otherwise, if the user is familiar with the app, they can click a button to start classifying. The user classifies a fruit in 3 steps:
