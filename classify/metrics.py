@@ -44,6 +44,22 @@ elif fruit == 'strawberry':
     model_url = model_prefix + 'strawberry_model.h5'
     fresh_folders = [get_kaggle('F_Strawberry'), get_mendeley('FreshStrawberry')]
     rotten_folders = [get_kaggle('S_Strawberry'), get_mendeley('RottenStrawberry')]
+elif fruit == 'mango':
+    model_url = model_prefix + 'mango_model.h5'
+    fresh_folders = [get_kaggle('F_Mango')]
+    rotten_folders = [get_kaggle('S_Mango')]
+elif fruit == 'tomato':
+    model_url = model_prefix + 'tomato_model.h5'
+    fresh_folders = [get_kaggle('F_Tomato')]
+    rotten_folders = [get_kaggle('S_Tomato')]
+elif fruit == "greengrape":
+    model_url = model_prefix + 'green_grape_model.h5'
+    fresh_folders = [get_mendeley('FreshGrape')]
+    rotten_folders = [get_mendeley('RottenGrape')]
+elif fruit == "lime":
+    model_url = model_prefix + 'lime_model.h5'
+    fresh_folders = [get_kaggle('F_Lime')]
+    rotten_folders = [get_kaggle('S_Lime')]
 else:
     raise Exception('Fruit not found')
 
