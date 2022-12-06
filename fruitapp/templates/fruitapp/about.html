@@ -2,7 +2,7 @@
 
 {% block content %}
 {% load static %}
-<div class="card about-content mx-auto shadow d-flex justify-content-center text-center">
+<div class="card about-content mx-auto shadow d-flex justify-content-center text-center mb-5">
   <div id="carouselExampleDark" class="carousel carousel-dark slide h-100">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
@@ -159,4 +159,5 @@
     </button>
   </div>
 </div>
+<a href="{% url 'home' %}"><button class="btn btn-primary">back to home</button></a>
 {% endblock %}

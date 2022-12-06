@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 <h3 class="mb-3">step 1: upload</h3>
-<div class="card p-5 mx-auto shadow d-flex justify-content-center text-center">
+<div class="card p-5 mx-auto shadow d-flex justify-content-center text-center mb-5">
     <div class="d-flex flex-column">
         <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
             <div class="row m-3">
@@ -46,6 +46,7 @@
         </div>
     </div>
 </div>
+<a href="{% url 'home' %}"><button class="btn btn-primary">back to home</button></a>
 <script>
 
     $("#imageInput")[0].onchange = evt => {
