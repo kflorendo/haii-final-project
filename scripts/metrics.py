@@ -12,7 +12,7 @@ fruit = sys.argv[1]
 print('getting metrics for', fruit, 'model')
 
 # set up functions for getting paths to model and test data
-model_prefix = 'fruitapp/static/fruitapp/models/'
+model_prefix = 'models/'
 kaggle_prefix = 'scripts/kaggle-dataset/'
 kaggle_suffix = '/test'
 mendeley_prefix = 'scripts/mendeley-dataset/OriginalImage/'

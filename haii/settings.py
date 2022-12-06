@@ -29,9 +29,9 @@ SESS = tf.compat.v1.Session()
 GRAPH1 = tf.get_default_graph()
 set_session(SESS)
 
-BANANA_MODEL = load_model(str(BASE_DIR) + '/fruitapp/static/fruitapp/models/banana_Model.h5')
+BANANA_MODEL = load_model(str(BASE_DIR) + '/models/banana_Model.h5')
 
-FRUIT_CLASS_NAMES = open(str(BASE_DIR) + '/fruitapp/static/fruitapp/models/labels.txt', 'r').readlines()
+FRUIT_CLASS_NAMES = open(str(BASE_DIR) + '/models/labels.txt', 'r').readlines()
 
 EXPLAINER = lime_image.LimeImageExplainer()
 
